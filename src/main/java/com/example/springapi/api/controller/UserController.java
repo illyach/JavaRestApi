@@ -26,4 +26,5 @@ public class UserController {
         Optional<User> user = userService.getUser(id);
         return user.orElse(null);
     }
+
 }
