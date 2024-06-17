@@ -1,7 +1,7 @@
 package com.example.springapi.api.controller;
 
-import com.example.springapi.api.repository.CatRepo;
-import com.example.springapi.entity.Cat;
+import com.example.springapi.api.repository.BookRepo;
+import com.example.springapi.entity.Book;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -15,37 +15,37 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MainController {
 
-    private final CatRepo catRepo;
+    private final BookRepo bookRepo;
     private final ObjectMapper objectMapper;
 
     @PostMapping("/api/add")
-    public void addCat(@RequestBody Cat cat) {
-        log.info("New row: " + catRepo.save(cat));
+    public void addCat(@RequestBody Book book) {
+        log.info("New row: " + bookRepo.save(book));
     }
 
     @SneakyThrows
     @GetMapping("/api/all")
-    public List<Cat> getAll() {
-        return catRepo.findAll();
+    public List<Book> getAll() {
+        return bookRepo.findAll();
     }
 
     @GetMapping("/api") //по id GET запрос
-    public Cat getCat(@RequestParam int id) {
-        return catRepo.findById(id).orElseThrow();
+    public Book getCat(@RequestParam int id) {
+        return bookRepo.findById(id).orElseThrow();
     }
 
     @DeleteMapping("/api")
     public void deleteCat(@RequestParam int id) {
-        catRepo.deleteById(id);
+        bookRepo.deleteById(id);
     }
 
 
     @PutMapping("/api/put")
-    public String changeCat(@RequestBody Cat cat) {
-        if(!catRepo.existsById(cat.getId())){
+    public String changeCat(@RequestBody Book book) {
+        if(!bookRepo.existsById(book.getId())){
             return "No such row";
         }
-        return catRepo.save(cat).toString();
+        return bookRepo.save(book).toString();
     }
 
 }
