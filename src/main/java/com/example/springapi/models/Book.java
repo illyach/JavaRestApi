@@ -1,4 +1,4 @@
-package com.example.springapi.entity;
+package com.example.springapi.models;
 
 
 import jakarta.persistence.*;

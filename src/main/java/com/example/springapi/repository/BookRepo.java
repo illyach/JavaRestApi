@@ -1,8 +1,10 @@
-package com.example.springapi.api.repository;
+package com.example.springapi.repository;
 
-import com.example.springapi.entity.Book;
+
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import com.example.springapi.models.Book;
 
 
 @Repository
