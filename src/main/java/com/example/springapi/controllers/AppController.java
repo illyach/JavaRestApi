@@ -26,21 +26,10 @@ public class AppController {
 
 
 
-
-
-
     @PostMapping("/new-user")
     public String addUser(@RequestBody MyUser user) {
         service.addUser(user);
-        return "User is saved";
-    }
-
-
-
-    @PostMapping("/add")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public void addBook(@RequestBody Book book) {
-        log.info("New row: " + bookRepo.save(book));
+        return "User is saved bro";
     }
 
 

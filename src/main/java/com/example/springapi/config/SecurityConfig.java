@@ -30,15 +30,18 @@ public class SecurityConfig {
         return new MyUserDetailsService();
     }
 
+
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth.requestMatchers("my-api/app", "api/v1/apps/new-user").permitAll()
+                .authorizeHttpRequests(auth -> auth.requestMatchers("my-api/add", "my-api/app", "api/v1/apps/new-user").permitAll()
                         .requestMatchers("api/v1/apps/**").authenticated())
-                .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
+                .formLogin(login -> login
+                        .permitAll()
+                        .defaultSuccessUrl("http://localhost:8100/home", true))
                 .build();
     }
-
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
@@ -53,14 +56,5 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
-        configuration.setAllowedHeaders(Arrays.asList("*"));
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
+
 }
