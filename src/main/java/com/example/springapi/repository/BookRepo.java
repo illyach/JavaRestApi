@@ -9,5 +9,6 @@ import com.example.springapi.models.Book;
 
 @Repository
 public interface BookRepo extends JpaRepository<Book, Integer> {
+    
 
 }

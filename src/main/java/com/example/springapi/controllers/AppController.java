@@ -5,6 +5,7 @@ import com.example.springapi.models.Book;
 import com.example.springapi.repository.BookRepo;
 import com.example.springapi.services.AppService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -39,12 +40,17 @@ public class AppController {
     }
 
     @GetMapping("/get")
+    @Operation(
+            summary = "Get book by ID",
+            description = "Returns a book based on the provided ID. Requires the user to have ROLE_USER authority."
+    )
     @PreAuthorize("hasAuthority('ROLE_USER')")
     public Book getBookById(@RequestParam int id) {
         return bookRepo.findById(id).orElseThrow();
     }
 
     @DeleteMapping("/delete")
+
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public void deleteBook(@RequestParam int id) {
         bookRepo.deleteById(id);
